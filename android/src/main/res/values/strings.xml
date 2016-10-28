@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BTPrint</string>
+    <string name="title_paired_devices">配对的设备</string>
+    <string name="button_print">打印</string>
+    <string name="title_other_devices">其他设备</string>
+    <string name="none_paired">没有匹配的设备</string>
+    <string name="none_found">没有找到设备</string>
+</resources>
