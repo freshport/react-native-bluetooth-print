@@ -1,15 +1,13 @@
 //
-//  BlueToothPrinterListView.h
-//  BlueToothPrint
+//  BluetoothPrinterListView.h
+//  BluetoothPrint
 //
-//  Created by euky on 2016/10/21.
-//  Copyright © 2016年 euky. All rights reserved.
+//  Created by NovaCloud on 16/11/4.
+//  Copyright © 2016年 NovaCloud. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface BlueToothPrinterListView : UITableView
-
+@interface BluetoothPrinterListView : UITableView
 - (void)startScan;
-
 @end

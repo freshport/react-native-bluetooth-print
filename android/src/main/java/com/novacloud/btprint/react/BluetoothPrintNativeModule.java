@@ -19,7 +19,7 @@ public class BluetoothPrintNativeModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "BlueToothPrint";
+        return "BluetoothPrint";
     }
 
     @ReactMethod
@@ -30,6 +30,6 @@ public class BluetoothPrintNativeModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void hasConnectedToAPrinter(Callback callback) {
         BluetoothService bluetoothService = BluetoothService.getInstance(null);
-        callback.invoke(null, bluetoothService.getState() == bluetoothService.getState());
+        callback.invoke(null, bluetoothService.getState() == bluetoothService.STATE_CONNECTED);
     }
 }

@@ -1,22 +1,22 @@
 //
-//  BlueToothPrinterListView.m
-//  BlueToothPrint
+//  BluetoothPrinterListView.m
+//  BluetoothPrint
 //
-//  Created by euky on 2016/10/21.
-//  Copyright © 2016年 euky. All rights reserved.
+//  Created by NovaCloud on 16/11/4.
+//  Copyright © 2016年 NovaCloud. All rights reserved.
 //
 
-#import "BlueToothPrinterListView.h"
-#import "BlueToothPrinter.h"
+#import "BluetoothPrinterListView.h"
+#import "BluetoothPrinter.h"
 
-@interface BlueToothPrinterListView()<UITableViewDelegate, UITableViewDataSource, UartDelegate>
+@interface BluetoothPrinterListView()<UITableViewDelegate, UITableViewDataSource, UartDelegate>
 
-@property (nonatomic, strong) BlueToothPrinter *printer;
+@property (nonatomic, strong) BluetoothPrinter *printer;
 @property (nonatomic, strong) NSMutableArray *deviceList;
 
 @end
 
-@implementation BlueToothPrinterListView
+@implementation BluetoothPrinterListView
 
 - (instancetype) init {
     self = [super initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -34,9 +34,9 @@
     [self.printer scanStart];
 }
 
-- (BlueToothPrinter *)printer {
+- (BluetoothPrinter *)printer {
     if (!_printer) {
-        _printer = [BlueToothPrinter sharedInstance];
+        _printer = [BluetoothPrinter sharedInstance];
         [_printer setUartDelegate:self];
     }
     return _printer;

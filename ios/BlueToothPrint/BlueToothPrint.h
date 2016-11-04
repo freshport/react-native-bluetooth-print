@@ -1,13 +1,13 @@
 //
-//  BlueToothPrint.h
-//  BlueToothPrint
+//  BluetoothPrint.h
+//  BluetoothPrint
 //
-//  Created by euky on 2016/10/21.
-//  Copyright © 2016年 euky. All rights reserved.
+//  Created by NovaCloud on 16/11/4.
+//  Copyright © 2016年 NovaCloud. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface BlueToothPrint : NSObject
+@interface BluetoothPrint : NSObject
 
 @end

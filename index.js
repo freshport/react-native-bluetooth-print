@@ -1,33 +1,47 @@
 import React, { Component, PropTypes } from 'react'
-import { requireNativeComponent, NativeModules } from 'react-native'
+import {
+    requireNativeComponent,
+    NativeModules,
+    Platform,
+    View
+} from 'react-native'
 
-class BlueToothPrinterList extends Component {
+
+let PrinterList
+if (Platform.OS === 'ios') {
+    PrinterList = requireNativeComponent('BluetoothPrintView', null)
+} else if (Platform.OS === 'android') {
+    const iface = {
+        name: 'PrinterList',
+        propTypes: {
+            ...View.propTypes
+        }
+    }
+    PrinterList = requireNativeComponent('BluetoothPrintView', iface)
+}
+
+class BluetoothPrinterList extends Component {
     constructor(props) {
         super(props)
     }
     render() {
-        const DeviceList = requireNativeComponent('BlueToothPrint', DeviceList)
-        return <DeviceList {...this.props} />
+        return <PrinterList {...this.props } />
     }
 }
 
-
-export default class BlueToothPrint {
+export default class BluetoothPrint {
     static orderPrint(array) {
-        NativeModules.BlueToothPrint.orderPrint(array)
+        NativeModules.BluetoothPrint.orderPrint(array)
     }
     static hasConnectedToAPrinter() {
         const promise = new Promise((resolve, reject) => {
-            NativeModules.BlueToothPrint.hasConnectedToAPrinter((err, ret) => {
+            NativeModules.BluetoothPrint.hasConnectedToAPrinter((err, ret) => {
                 err ? reject(err) : resolve(ret)
             })
         })
         return promise
     }
-    static get BlueToothPrinterListView() {
-        return BlueToothPrinterList
+    static get BluetoothPrinterListView() {
+        return BluetoothPrinterList
     }
 }
-
-
-

@@ -1,20 +1,19 @@
 //
-//  BlueToothPrinter.m
-//  BlueToothPrint
+//  BluetoothPrinter.m
+//  BluetoothPrint
 //
-//  Created by euky on 2016/10/21.
-//  Copyright © 2016年 euky. All rights reserved.
+//  Created by NovaCloud on 16/11/4.
+//  Copyright © 2016年 NovaCloud. All rights reserved.
 //
 
-#import "BlueToothPrinter.h"
+#import "BluetoothPrinter.h"
 
-@implementation BlueToothPrinter
-
+@implementation BluetoothPrinter
 + (instancetype)sharedInstance {
-    static BlueToothPrinter *sharedInstance = nil;
+    static BluetoothPrinter *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[BlueToothPrinter alloc] init];
+        sharedInstance = [[BluetoothPrinter alloc] init];
     });
     return sharedInstance;
 }

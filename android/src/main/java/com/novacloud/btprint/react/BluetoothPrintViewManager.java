@@ -30,7 +30,7 @@ import java.util.Set;
 
 public class BluetoothPrintViewManager extends SimpleViewManager<View> {
 
-    public static final String REACT_CLASS = "BluePrintView";
+    public static final String REACT_CLASS = "BluetoothPrintView";
 
     @Override
     public String getName() {

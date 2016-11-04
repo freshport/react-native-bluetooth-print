@@ -7,88 +7,90 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A24D4DFB1DB9F05C007BD092 /* BlueToothPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = A24D4DFA1DB9F05C007BD092 /* BlueToothPrint.m */; };
-		A2A07E041DB8689B009B8BF9 /* BlueToothPrintManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A07E031DB8689B009B8BF9 /* BlueToothPrintManager.m */; };
-		A2C45EA81DB9B27300EC2995 /* libUartLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C45EA61DB9B27300EC2995 /* libUartLib.a */; };
-		A2C45EAB1DB9B2F400EC2995 /* BlueToothPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C45EAA1DB9B2F400EC2995 /* BlueToothPrinter.m */; };
-		A2C45EAE1DB9B4AF00EC2995 /* BlueToothPrinterListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C45EAD1DB9B4AF00EC2995 /* BlueToothPrinterListView.m */; };
+		98612F561DCC624200F8E2F5 /* BluetoothPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 98612F551DCC624200F8E2F5 /* BluetoothPrint.m */; };
+		98612F571DCC624200F8E2F5 /* BluetoothPrint.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 98612F541DCC624200F8E2F5 /* BluetoothPrint.h */; };
+		98612F5F1DCC636B00F8E2F5 /* BluetoothPrintViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98612F5E1DCC636B00F8E2F5 /* BluetoothPrintViewManager.m */; };
+		98612F621DCC63CF00F8E2F5 /* BluetoothPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98612F611DCC63CF00F8E2F5 /* BluetoothPrinter.m */; };
+		98612F661DCC641D00F8E2F5 /* libUartLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98612F641DCC641D00F8E2F5 /* libUartLib.a */; };
+		98612F6C1DCC646700F8E2F5 /* BluetoothPrinterListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98612F6B1DCC646700F8E2F5 /* BluetoothPrinterListView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A2A07DCB1DB86146009B8BF9 /* CopyFiles */ = {
+		98612F4F1DCC624200F8E2F5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				98612F571DCC624200F8E2F5 /* BluetoothPrint.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A24D4DF91DB9F05C007BD092 /* BlueToothPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothPrint.h; sourceTree = "<group>"; };
-		A24D4DFA1DB9F05C007BD092 /* BlueToothPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothPrint.m; sourceTree = "<group>"; };
-		A2A07DCD1DB86146009B8BF9 /* libBlueToothPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlueToothPrint.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2A07E021DB8689B009B8BF9 /* BlueToothPrintManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothPrintManager.h; sourceTree = "<group>"; };
-		A2A07E031DB8689B009B8BF9 /* BlueToothPrintManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothPrintManager.m; sourceTree = "<group>"; };
-		A2C45EA61DB9B27300EC2995 /* libUartLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUartLib.a; sourceTree = "<group>"; };
-		A2C45EA71DB9B27300EC2995 /* UartLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UartLib.h; sourceTree = "<group>"; };
-		A2C45EA91DB9B2F400EC2995 /* BlueToothPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothPrinter.h; sourceTree = "<group>"; };
-		A2C45EAA1DB9B2F400EC2995 /* BlueToothPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothPrinter.m; sourceTree = "<group>"; };
-		A2C45EAC1DB9B4AF00EC2995 /* BlueToothPrinterListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothPrinterListView.h; sourceTree = "<group>"; };
-		A2C45EAD1DB9B4AF00EC2995 /* BlueToothPrinterListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothPrinterListView.m; sourceTree = "<group>"; };
+		98612F511DCC624200F8E2F5 /* libBluetoothPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBluetoothPrint.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		98612F541DCC624200F8E2F5 /* BluetoothPrint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothPrint.h; sourceTree = "<group>"; };
+		98612F551DCC624200F8E2F5 /* BluetoothPrint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothPrint.m; sourceTree = "<group>"; };
+		98612F5D1DCC636B00F8E2F5 /* BluetoothPrintViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothPrintViewManager.h; sourceTree = "<group>"; };
+		98612F5E1DCC636B00F8E2F5 /* BluetoothPrintViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothPrintViewManager.m; sourceTree = "<group>"; };
+		98612F601DCC63CF00F8E2F5 /* BluetoothPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothPrinter.h; sourceTree = "<group>"; };
+		98612F611DCC63CF00F8E2F5 /* BluetoothPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothPrinter.m; sourceTree = "<group>"; };
+		98612F641DCC641D00F8E2F5 /* libUartLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUartLib.a; sourceTree = "<group>"; };
+		98612F651DCC641D00F8E2F5 /* UartLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UartLib.h; sourceTree = "<group>"; };
+		98612F6A1DCC646700F8E2F5 /* BluetoothPrinterListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothPrinterListView.h; sourceTree = "<group>"; };
+		98612F6B1DCC646700F8E2F5 /* BluetoothPrinterListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothPrinterListView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A2A07DCA1DB86146009B8BF9 /* Frameworks */ = {
+		98612F4E1DCC624200F8E2F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2C45EA81DB9B27300EC2995 /* libUartLib.a in Frameworks */,
+				98612F661DCC641D00F8E2F5 /* libUartLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A2A07DC41DB86146009B8BF9 = {
+		98612F481DCC624000F8E2F5 = {
 			isa = PBXGroup;
 			children = (
-				A2A07DCF1DB86146009B8BF9 /* BlueToothPrint */,
-				A2A07DCE1DB86146009B8BF9 /* Products */,
+				98612F531DCC624200F8E2F5 /* BluetoothPrint */,
+				98612F521DCC624200F8E2F5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A2A07DCE1DB86146009B8BF9 /* Products */ = {
+		98612F521DCC624200F8E2F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A2A07DCD1DB86146009B8BF9 /* libBlueToothPrint.a */,
+				98612F511DCC624200F8E2F5 /* libBluetoothPrint.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A2A07DCF1DB86146009B8BF9 /* BlueToothPrint */ = {
+		98612F531DCC624200F8E2F5 /* BluetoothPrint */ = {
 			isa = PBXGroup;
 			children = (
-				A2C45EA51DB9B27300EC2995 /* Support */,
-				A2A07E021DB8689B009B8BF9 /* BlueToothPrintManager.h */,
-				A2A07E031DB8689B009B8BF9 /* BlueToothPrintManager.m */,
-				A2C45EA91DB9B2F400EC2995 /* BlueToothPrinter.h */,
-				A2C45EAA1DB9B2F400EC2995 /* BlueToothPrinter.m */,
-				A2C45EAC1DB9B4AF00EC2995 /* BlueToothPrinterListView.h */,
-				A2C45EAD1DB9B4AF00EC2995 /* BlueToothPrinterListView.m */,
-				A24D4DF91DB9F05C007BD092 /* BlueToothPrint.h */,
-				A24D4DFA1DB9F05C007BD092 /* BlueToothPrint.m */,
+				98612F631DCC641D00F8E2F5 /* Support */,
+				98612F5D1DCC636B00F8E2F5 /* BluetoothPrintViewManager.h */,
+				98612F5E1DCC636B00F8E2F5 /* BluetoothPrintViewManager.m */,
+				98612F601DCC63CF00F8E2F5 /* BluetoothPrinter.h */,
+				98612F611DCC63CF00F8E2F5 /* BluetoothPrinter.m */,
+				98612F6A1DCC646700F8E2F5 /* BluetoothPrinterListView.h */,
+				98612F6B1DCC646700F8E2F5 /* BluetoothPrinterListView.m */,
+				98612F541DCC624200F8E2F5 /* BluetoothPrint.h */,
+				98612F551DCC624200F8E2F5 /* BluetoothPrint.m */,
 			);
-			path = BlueToothPrint;
+			path = BluetoothPrint;
 			sourceTree = "<group>";
 		};
-		A2C45EA51DB9B27300EC2995 /* Support */ = {
+		98612F631DCC641D00F8E2F5 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				A2C45EA61DB9B27300EC2995 /* libUartLib.a */,
-				A2C45EA71DB9B27300EC2995 /* UartLib.h */,
+				98612F641DCC641D00F8E2F5 /* libUartLib.a */,
+				98612F651DCC641D00F8E2F5 /* UartLib.h */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -96,71 +98,71 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A2A07DCC1DB86146009B8BF9 /* BlueToothPrint */ = {
+		98612F501DCC624200F8E2F5 /* BluetoothPrint */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A2A07DD61DB86146009B8BF9 /* Build configuration list for PBXNativeTarget "BlueToothPrint" */;
+			buildConfigurationList = 98612F5A1DCC624200F8E2F5 /* Build configuration list for PBXNativeTarget "BluetoothPrint" */;
 			buildPhases = (
-				A2A07DC91DB86146009B8BF9 /* Sources */,
-				A2A07DCA1DB86146009B8BF9 /* Frameworks */,
-				A2A07DCB1DB86146009B8BF9 /* CopyFiles */,
+				98612F4D1DCC624200F8E2F5 /* Sources */,
+				98612F4E1DCC624200F8E2F5 /* Frameworks */,
+				98612F4F1DCC624200F8E2F5 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = BlueToothPrint;
-			productName = BlueToothPrint;
-			productReference = A2A07DCD1DB86146009B8BF9 /* libBlueToothPrint.a */;
+			name = BluetoothPrint;
+			productName = BluetoothPrint;
+			productReference = 98612F511DCC624200F8E2F5 /* libBluetoothPrint.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A2A07DC51DB86146009B8BF9 /* Project object */ = {
+		98612F491DCC624100F8E2F5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = euky;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = NovaCloud;
 				TargetAttributes = {
-					A2A07DCC1DB86146009B8BF9 = {
-						CreatedOnToolsVersion = 8.0;
+					98612F501DCC624200F8E2F5 = {
+						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = A2A07DC81DB86146009B8BF9 /* Build configuration list for PBXProject "BlueToothPrint" */;
+			buildConfigurationList = 98612F4C1DCC624100F8E2F5 /* Build configuration list for PBXProject "BluetoothPrint" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = A2A07DC41DB86146009B8BF9;
-			productRefGroup = A2A07DCE1DB86146009B8BF9 /* Products */;
+			mainGroup = 98612F481DCC624000F8E2F5;
+			productRefGroup = 98612F521DCC624200F8E2F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A2A07DCC1DB86146009B8BF9 /* BlueToothPrint */,
+				98612F501DCC624200F8E2F5 /* BluetoothPrint */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A2A07DC91DB86146009B8BF9 /* Sources */ = {
+		98612F4D1DCC624200F8E2F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2C45EAE1DB9B4AF00EC2995 /* BlueToothPrinterListView.m in Sources */,
-				A2A07E041DB8689B009B8BF9 /* BlueToothPrintManager.m in Sources */,
-				A24D4DFB1DB9F05C007BD092 /* BlueToothPrint.m in Sources */,
-				A2C45EAB1DB9B2F400EC2995 /* BlueToothPrinter.m in Sources */,
+				98612F5F1DCC636B00F8E2F5 /* BluetoothPrintViewManager.m in Sources */,
+				98612F621DCC63CF00F8E2F5 /* BluetoothPrinter.m in Sources */,
+				98612F6C1DCC646700F8E2F5 /* BluetoothPrinterListView.m in Sources */,
+				98612F561DCC624200F8E2F5 /* BluetoothPrint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A2A07DD41DB86146009B8BF9 /* Debug */ = {
+		98612F581DCC624200F8E2F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -200,14 +202,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
-		A2A07DD51DB86146009B8BF9 /* Release */ = {
+		98612F591DCC624200F8E2F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -241,14 +243,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		A2A07DD71DB86146009B8BF9 /* Debug */ = {
+		98612F5B1DCC624200F8E2F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
@@ -266,7 +268,7 @@
 			};
 			name = Debug;
 		};
-		A2A07DD81DB86146009B8BF9 /* Release */ = {
+		98612F5C1DCC624200F8E2F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
@@ -287,25 +289,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A2A07DC81DB86146009B8BF9 /* Build configuration list for PBXProject "BlueToothPrint" */ = {
+		98612F4C1DCC624100F8E2F5 /* Build configuration list for PBXProject "BluetoothPrint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A2A07DD41DB86146009B8BF9 /* Debug */,
-				A2A07DD51DB86146009B8BF9 /* Release */,
+				98612F581DCC624200F8E2F5 /* Debug */,
+				98612F591DCC624200F8E2F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A2A07DD61DB86146009B8BF9 /* Build configuration list for PBXNativeTarget "BlueToothPrint" */ = {
+		98612F5A1DCC624200F8E2F5 /* Build configuration list for PBXNativeTarget "BluetoothPrint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A2A07DD71DB86146009B8BF9 /* Debug */,
-				A2A07DD81DB86146009B8BF9 /* Release */,
+				98612F5B1DCC624200F8E2F5 /* Debug */,
+				98612F5C1DCC624200F8E2F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A2A07DC51DB86146009B8BF9 /* Project object */;
+	rootObject = 98612F491DCC624100F8E2F5 /* Project object */;
 }

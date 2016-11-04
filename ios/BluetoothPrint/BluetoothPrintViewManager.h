@@ -1,5 +1,5 @@
 //
-//  BluetoothPrinter.h
+//  BluetoothPrintManager.h
 //  BluetoothPrint
 //
 //  Created by NovaCloud on 16/11/4.
@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UartLib.h"
+#import "RCTViewManager.h"
 
-@interface BluetoothPrinter : UartLib
-+ (instancetype)sharedInstance;
+@interface BluetoothPrintViewManager : RCTViewManager
+
 @end

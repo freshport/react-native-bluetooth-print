@@ -6,26 +6,26 @@
 //  Copyright © 2016年 euky. All rights reserved.
 //
 
-#import "BlueToothPrint.h"
-#import "BlueToothPrinter.h"
+#import "BluetoothPrint.h"
+#import "BluetoothPrinter.h"
 #import "RCTBridgeModule.h"
 #import <CoreText/CoreText.h>
 
 #define LINE_MAX_CHARACTERISTICS 48
 #define LINE_MAX_WITH_SMALL_CHARACTERISTICS 72
 
-@interface BlueToothPrint()<RCTBridgeModule>
+@interface BluetoothPrint()<RCTBridgeModule>
 
-@property (nonatomic, strong) BlueToothPrinter *printer;
+@property (nonatomic, strong) BluetoothPrinter *printer;
 @property (nonatomic, strong) CBPeripheral *connectedPer;
 
 @end
 
-@implementation BlueToothPrint
+@implementation BluetoothPrint
 
-- (BlueToothPrinter *)printer {
+- (BluetoothPrinter *)printer {
     if (!_printer) {
-        _printer = [BlueToothPrinter sharedInstance];
+        _printer = [BluetoothPrinter sharedInstance];
     }
     return  _printer;
 }
