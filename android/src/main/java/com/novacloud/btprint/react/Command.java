@@ -45,6 +45,7 @@ public class Command {
 
     public static boolean print(ReadableArray readableArray) throws Exception {
         if (readableArray == null || readableArray.size() == 0) return false;
+        mService = BluetoothService.getInstance(null);
         if (mService.getState() != mService.STATE_CONNECTED) return false;
 
         mService = BluetoothService.getInstance(null);
@@ -80,10 +81,10 @@ public class Command {
                     String lineEnd = "";
                     ReadableMap listMap = list.getMap(j);
                     lineStart = generateInfoVal(listMap);
-                    lineEnd = addBlankCase(map.getString("returnnum"), "", 4) +
-                            addBlankCase(map.getString("num"), "", 4) + " " +
-                            addBlankCase(map.getString("price"), "", 5) +
-                            addBlankCase("", map.getString("cash"), 6);
+                    lineEnd = addBlankCase(listMap.getString("returnnum"), "", 4) +
+                            addBlankCase(listMap.getString("num"), "", 4) + " " +
+                            addBlankCase(listMap.getString("price"), "", 5) +
+                            addBlankCase("", listMap.getString("cash"), 6);
                     info += addBlankCase(lineStart, lineEnd, Command.NORMAL_FONT_NUMBER);
                     info += "\n";
                 }

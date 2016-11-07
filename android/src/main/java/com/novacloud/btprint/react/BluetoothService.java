@@ -77,7 +77,7 @@ public class BluetoothService {
 
         // Give the new state to the Handler so the UI Activity can update
         if (mHandler != null) {
-            mHandler.obtainMessage(BluetoothDeviceListView.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+            mHandler.obtainMessage(BluetoothPrintViewManager.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
         }
     }
 
@@ -191,9 +191,9 @@ public class BluetoothService {
         // Send the name of the connected device back to the UI Activity
         CONNECT_DEVICE_NAME = device.getName();
         Bundle bundle = new Bundle();
-        bundle.putString(BluetoothDeviceListView.DEVICE_NAME, device.getName());
+        bundle.putString(BluetoothPrintViewManager.DEVICE_NAME, device.getName());
         if (mHandler != null) {
-            Message msg = mHandler.obtainMessage(BluetoothDeviceListView.MESSAGE_DEVICE_NAME);
+            Message msg = mHandler.obtainMessage(BluetoothPrintViewManager.MESSAGE_DEVICE_NAME);
             msg.setData(bundle);
             mHandler.sendMessage(msg);
         }
@@ -260,9 +260,9 @@ public class BluetoothService {
 
         // Send a failure message back to the Activity
         Bundle bundle = new Bundle();
-        bundle.putString(BluetoothDeviceListView.TOAST, "Unable to connect device");
+        bundle.putString(BluetoothPrintViewManager.TOAST, "Unable to connect device");
         if (mHandler != null) {
-            Message msg = mHandler.obtainMessage(BluetoothDeviceListView.MESSAGE_TOAST);
+            Message msg = mHandler.obtainMessage(BluetoothPrintViewManager.MESSAGE_TOAST);
             msg.setData(bundle);
             mHandler.sendMessage(msg);
         }
@@ -276,7 +276,7 @@ public class BluetoothService {
 
         // Send a failure message back to the Activity
         if (mHandler != null) {
-            Message msg = mHandler.obtainMessage(BluetoothDeviceListView.MESSAGE_TOAST);
+            Message msg = mHandler.obtainMessage(BluetoothPrintViewManager.MESSAGE_TOAST);
             mHandler.sendMessage(msg);
         }
         //Bundle bundle = new Bundle();
@@ -466,7 +466,7 @@ public class BluetoothService {
                     if (bytes > 0) {
                         // Send the obtained bytes to the UI Activity
                         if (mHandler != null) {
-                            mHandler.obtainMessage(BluetoothDeviceListView.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+                            mHandler.obtainMessage(BluetoothPrintViewManager.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                         }
                     } else {
                         Log.e(TAG, "disconnected");
@@ -505,7 +505,7 @@ public class BluetoothService {
                 Log.i("BTPWRITE", new String(buffer, "GBK"));
                 // Share the sent message back to the UI Activity
                 if (mHandler != null) {
-                    mHandler.obtainMessage(BluetoothDeviceListView.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
+                    mHandler.obtainMessage(BluetoothPrintViewManager.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
                 }
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);
