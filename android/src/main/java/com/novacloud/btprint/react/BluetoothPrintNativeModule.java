@@ -32,4 +32,11 @@ public class BluetoothPrintNativeModule extends ReactContextBaseJavaModule {
         BluetoothService bluetoothService = BluetoothService.getInstance(null);
         callback.invoke(null, bluetoothService.getState() == bluetoothService.STATE_CONNECTED);
     }
+
+    @ReactMethod
+    public void setDelay(int delay) {
+        BluetoothService bluetoothService = BluetoothService.getInstance(null);
+        bluetoothService.delay = delay;
+    }
+
 }

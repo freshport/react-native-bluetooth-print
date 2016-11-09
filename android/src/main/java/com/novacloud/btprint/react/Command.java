@@ -9,23 +9,20 @@ import com.facebook.react.bridge.ReadableMap;
  */
 public class Command {
 
+    private final static int PRINT_DELAY_OFFSET = 3
     public static byte[] INIT = hexStringToBytes("1B 40");//初始化
     public static byte[] ALIGN_LEFT = hexStringToBytes("1B 61 00");//左对齐
     public static byte[] ALIGN_RIGHT = hexStringToBytes("1B 61 02");//居右对齐
     public static byte[] ALIGN_CENTER = hexStringToBytes("1B 61 01");//居中对齐
-
     public static byte[] OUT_PAPER = hexStringToBytes("0C");//页出纸
     public static byte[] UNDER_LINE = hexStringToBytes("1C 2D 01");//下划线
     public static byte[] NEW_LINE = hexStringToBytes("0A");//换行
     public static byte[] HEIGHT_LINE = hexStringToBytes("1B 33 16");//行间距
-
     public static byte[] SMALL_FONT = hexStringToBytes("1B 4D 01");//小号字体
     public static byte[] NORMAL_FONT = hexStringToBytes("1B 4D 00");//正常
     public static byte[] BOLD_FONT = hexStringToBytes("1B 45 01");//粗体
-
     public static int NORMAL_FONT_NUMBER = 48;
     public static int SMALL_FONT_NUMBER = 72;
-
     private static BluetoothService mService;
 
     public static byte[] hexStringToBytes(String hexString) {
@@ -103,6 +100,18 @@ public class Command {
             mService.write(Command.NEW_LINE);
             mService.write(Command.NEW_LINE);
             mService.write(Command.NEW_LINE);
+
+            int delay = mService.delay == 0 ? 5 * 1000 + PRINT_DELAY_OFFSET * 1000 : mService.delay * 1000 + PRINT_DELAY_OFFSET * 1000;
+            if (delay < 0) {
+                delay = 0;
+            }
+
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
 
         return true;
@@ -144,6 +153,14 @@ public class Command {
         String ret = "";
         if (isValidVal(map.getString("product"))) {
             ret += map.getString("product");
+            ret += "/";
+        }
+        if(isValidVal(map.getString("note"))){
+            ret += "(";
+            ret += map.getString("note");
+            ret += ")";
+        }
+        if (!"".equals(ret)) {
             ret += "/";
         }
         if (isValidVal(map.getString("variety"))) {

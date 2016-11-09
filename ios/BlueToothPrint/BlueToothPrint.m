@@ -96,11 +96,11 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
         [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
         [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
         
-        if (self.printer.delay == 0) {
-            [NSThread sleepForTimeInterval: 5 + PRINT_DELAY_OFFSET];
-        } else {
-            [NSThread sleepForTimeInterval:self.printer.delay + PRINT_DELAY_OFFSET];
+        NSInteger delay = self.printer.delay == 0 ? 5 + PRINT_DELAY_OFFSET : self.printer.delay + PRINT_DELAY_OFFSET;
+        if (delay < 0) {
+            delay = 0
         }
+        [NSThread sleepForTimeInterval:delay];
     }
 }
 
