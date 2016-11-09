@@ -13,11 +13,13 @@
 
 #define LINE_MAX_CHARACTERISTICS 48
 #define LINE_MAX_WITH_SMALL_CHARACTERISTICS 72
+#define PRINT_DELAY_OFFSET 3
 
 @interface BluetoothPrint()<RCTBridgeModule>
 
 @property (nonatomic, strong) BluetoothPrinter *printer;
 @property (nonatomic, strong) CBPeripheral *connectedPer;
+@property (nonatomic) NSUInteger delay;
 
 @end
 
@@ -35,10 +37,19 @@
         _connectedPer = self.printer.retrieveConnectedPeripherals.firstObject;
     }
     return _connectedPer;
+
+
+- (NSUInteger)delay {
+    if (_delay <= 0) {
+        return PRINT_DELAY_OFFSET + 5;
+    }
+    return PRINT_DELAY_OFFSET + _delay;
 }
 
 RCT_EXPORT_MODULE();
-
+RCT_EXPORT_METHOD(setDelay:(NSUInteger *)delay) {
+    self.delay = delay
+}
 RCT_EXPORT_METHOD(hasConnectedToAPrinter:(RCTResponseSenderBlock)callback) {
     callback(@[[NSNull null], self.connectedPer ? @YES : @NO]);
 }
@@ -93,6 +104,7 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
         [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
         [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
         
+        [NSThread sleepForTimeInterval:self.delay];
     }
 }
 
@@ -255,6 +267,12 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
     NSMutableString *ret = [[NSMutableString alloc] init];
     if ([self isValid:dic[@"product"]]) {
         [ret appendString:@"品名/"];
+    }
+    if ([self isValid:dic[@"note"]]) {
+        [ret appendFormat:@"(%@)", dic[@"note"]];
+    }
+    if (![ret isEqualToString:@""]) {
+        [ret appendString:@"/"];
     }
     if ([self isValid:dic[@"variety"]]) {
         [ret appendString:@"品种/"];

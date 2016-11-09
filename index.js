@@ -33,6 +33,9 @@ export default class BluetoothPrint {
     static orderPrint(array) {
         NativeModules.BluetoothPrint.orderPrint(array)
     }
+    static setDelay(delay) {
+        NativeModules.BluetoothPrint.setDelay(delay)
+    }
     static hasConnectedToAPrinter() {
         const promise = new Promise((resolve, reject) => {
             NativeModules.BluetoothPrint.hasConnectedToAPrinter((err, ret) => {
