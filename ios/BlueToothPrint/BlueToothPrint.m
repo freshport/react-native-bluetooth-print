@@ -99,7 +99,7 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
         if (self.printer.delay == 0) {
             [NSThread sleepForTimeInterval: 5 + PRINT_DELAY_OFFSET];
         } else {
-            [NSThread sleepForTimeInterval:self.delay + PRINT_DELAY_OFFSET];
+            [NSThread sleepForTimeInterval:self.printer.delay + PRINT_DELAY_OFFSET];
         }
     }
 }

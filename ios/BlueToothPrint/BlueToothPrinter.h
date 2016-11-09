@@ -11,5 +11,5 @@
 
 @interface BluetoothPrinter : UartLib
 + (instancetype)sharedInstance;
-@property (nonatomic) NSUInteger delay;
+@property (nonatomic) NSInteger delay;
 @end
