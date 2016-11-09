@@ -9,7 +9,7 @@ import com.facebook.react.bridge.ReadableMap;
  */
 public class Command {
 
-    private final static int PRINT_DELAY_OFFSET = 3
+    private final static int PRINT_DELAY_OFFSET = 3;
     public static byte[] INIT = hexStringToBytes("1B 40");//初始化
     public static byte[] ALIGN_LEFT = hexStringToBytes("1B 61 00");//左对齐
     public static byte[] ALIGN_RIGHT = hexStringToBytes("1B 61 02");//居右对齐
