@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong) BluetoothPrinter *printer;
 @property (nonatomic, strong) CBPeripheral *connectedPer;
-@property (nonatomic) NSUInteger delay;
 
 @end
 
@@ -41,7 +40,7 @@
 
 RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(setDelay:(NSUInteger *)delay) {
-    self.delay = delay;
+    self.printer.delay = delay;
 }
 RCT_EXPORT_METHOD(hasConnectedToAPrinter:(RCTResponseSenderBlock)callback) {
     callback(@[[NSNull null], self.connectedPer ? @YES : @NO]);
@@ -97,7 +96,7 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
         [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
         [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
         
-        if (self.delay <= 0) {
+        if (self.printer.delay == 0) {
             [NSThread sleepForTimeInterval: 5 + PRINT_DELAY_OFFSET];
         } else {
             [NSThread sleepForTimeInterval:self.delay + PRINT_DELAY_OFFSET];
