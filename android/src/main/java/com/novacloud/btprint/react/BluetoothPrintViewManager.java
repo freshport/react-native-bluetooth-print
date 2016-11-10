@@ -214,7 +214,7 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
                     break;
                 case MESSAGE_DEVICE_NAME:
                     // save the connected device's name
-//                    mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+                    mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
                     Toast.makeText(context,
                             "Connected to " + mConnectedDeviceName,
                             Toast.LENGTH_SHORT).show();

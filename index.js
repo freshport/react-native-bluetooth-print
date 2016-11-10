@@ -47,4 +47,11 @@ export default class BluetoothPrint {
     static get BluetoothPrinterListView() {
         return BluetoothPrinterList
     }
+    static get connectedDeviceName() {
+        const promise = new Promise((reslove, reject) => {
+            NativeModules.BluetoothPrint.connectedDeviceName((err, ret) => {
+                err ? reject(err) : resolve(ret)
+            })
+        })
+    }
 }

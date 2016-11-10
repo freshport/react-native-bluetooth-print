@@ -39,6 +39,11 @@
 }
 
 RCT_EXPORT_MODULE();
+RCT_EXPORT_METHOD(connectedDeviceName:(RCTResponseSenderBlock)callback) {
+    CBPeripheral *per = self.connectedPer;
+    NSString *deviceName = per ? per.name : @"";
+    callback(@[[NSNull null], deviceName]);
+}
 RCT_EXPORT_METHOD(setDelay:(NSUInteger *)delay) {
     self.printer.delay = delay;
 }

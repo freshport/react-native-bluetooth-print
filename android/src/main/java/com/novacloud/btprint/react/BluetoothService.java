@@ -522,7 +522,7 @@ public class BluetoothService {
         }
     }
 
-    public static String getConnectDeviceName() {
+    public static String getConnectedDeviceName() {
         return CONNECT_DEVICE_NAME;
     }
 
