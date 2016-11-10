@@ -40,79 +40,83 @@ public class Command {
         return (byte) "0123456789abcdef".indexOf(c);
     }
 
-    public static boolean print(ReadableArray readableArray) throws Exception {
-        if (readableArray == null || readableArray.size() == 0) return false;
+    public static boolean print(final ReadableArray readableArray) throws Exception {
+
         mService = BluetoothService.getInstance(null);
+        if (readableArray == null || readableArray.size() == 0) return false;
         if (mService.getState() != mService.STATE_CONNECTED) return false;
 
-        mService = BluetoothService.getInstance(null);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < readableArray.size(); i++) {
+                    ReadableMap map = readableArray.getMap(i);
+                    mService.write(Command.INIT);
+                    //mService.write(Command.BOLD_FONT);
 
-        for (int i = 0; i < readableArray.size(); i++) {
-            ReadableMap map = readableArray.getMap(i);
-            mService.write(Command.INIT);
-            //mService.write(Command.BOLD_FONT);
+                    String company = map.getString("user_company");
+                    mService.write(Command.ALIGN_CENTER);
 
-            String company = map.getString("user_company");
-            mService.write(Command.ALIGN_CENTER);
+                    mService.write(company);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.ALIGN_LEFT);
+                    mService.write(Command.SMALL_FONT);
+                    mService.write(Command.HEIGHT_LINE);
 
-            mService.write(company);
-            mService.write(Command.NEW_LINE);
-            mService.write(Command.ALIGN_LEFT);
-            mService.write(Command.SMALL_FONT);
-            mService.write(Command.HEIGHT_LINE);
+                    mService.write(addBlankCase("No." + map.getString("no"), map.getString("date"), Command.SMALL_FONT_NUMBER));
 
-            mService.write(addBlankCase("No." + map.getString("no"), map.getString("date"), Command.SMALL_FONT_NUMBER));
+                    mService.write(Command.NORMAL_FONT);
+                    mService.write("客户公司名称:" + map.getString("company") + "\n");
+                    ReadableMap saler = map.getMap("saler");
+                    mService.write("客户公司联系人:" + saler.getString("user") + "\n");
 
-            mService.write(Command.NORMAL_FONT);
-            mService.write("客户公司名称:" + map.getString("company") + "\n");
-            ReadableMap saler = map.getMap("saler");
-            mService.write("客户公司联系人:" + saler.getString("user") + "\n");
+                    mService.write(addBlankCase("品名/品种/规格/件重", "退损 数量 单价   金额", Command.NORMAL_FONT_NUMBER));
 
-            mService.write(addBlankCase("品名/品种/规格/件重", "退损 数量 单价   金额", Command.NORMAL_FONT_NUMBER));
+                    ReadableArray list = map.getArray("list");
+                    String info = "\n";
+                    if (list != null) {
+                        for (int j = 0; j < list.size(); j++) {
+                            String lineStart = "";
+                            String lineEnd = "";
+                            ReadableMap listMap = list.getMap(j);
+                            lineStart = generateInfoVal(listMap);
+                            lineEnd = addBlankCase(listMap.getString("returnnum"), "", 4) +
+                                    addBlankCase(listMap.getString("num"), "", 4) + " " +
+                                    addBlankCase(listMap.getString("price"), "", 5) +
+                                    addBlankCase("", listMap.getString("cash"), 6);
+                            info += addBlankCase(lineStart, lineEnd, Command.NORMAL_FONT_NUMBER);
+                            info += "\n";
+                        }
+                    }
+                    mService.write(info);
+                    ReadableMap sum = map.getMap("sum");
+                    mService.write(addBlankCase("", addBlankCase("合计", sum.getString("sum"), 16), Command.NORMAL_FONT_NUMBER));
+                    mService.write("\n");
+                    mService.write(addBlankCase("销售员:" + map.getString("user_saler") + " " + map.getString("user_tel"), map.getString("type"), Command.NORMAL_FONT_NUMBER));
+                    mService.write("\n************************************************");
+                    mService.write("\n注：本销售单等同于辉展市场巜销售成交单》");
+                    mService.write("\n客户签名:");
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
 
-            ReadableArray list = map.getArray("list");
-            String info = "\n";
-            if (list != null) {
-                for (int j = 0; j < list.size(); j++) {
-                    String lineStart = "";
-                    String lineEnd = "";
-                    ReadableMap listMap = list.getMap(j);
-                    lineStart = generateInfoVal(listMap);
-                    lineEnd = addBlankCase(listMap.getString("returnnum"), "", 4) +
-                            addBlankCase(listMap.getString("num"), "", 4) + " " +
-                            addBlankCase(listMap.getString("price"), "", 5) +
-                            addBlankCase("", listMap.getString("cash"), 6);
-                    info += addBlankCase(lineStart, lineEnd, Command.NORMAL_FONT_NUMBER);
-                    info += "\n";
+                    int delay = mService.delay == 0 ? 5 * 1000 + PRINT_DELAY_OFFSET * 1000 : mService.delay * 1000 + PRINT_DELAY_OFFSET * 1000;
+                    if (delay < 0) {
+                        delay = 0;
+                    }
+                    try {
+                        Thread.sleep(delay);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            mService.write(info);
-            ReadableMap sum = map.getMap("sum");
-            mService.write(addBlankCase("", addBlankCase("合计", sum.getString("sum"), 16), Command.NORMAL_FONT_NUMBER));
-            mService.write("\n");
-            mService.write(addBlankCase("销售员:" + map.getString("user_saler") + " " + map.getString("user_tel"), map.getString("type"), Command.NORMAL_FONT_NUMBER));
-            mService.write("\n************************************************");
-            mService.write("\n注：本销售单等同于辉展市场巜销售成交单》");
-            mService.write("\n客户签名:");
-            mService.write(Command.NEW_LINE);
-            mService.write(Command.NEW_LINE);
-            mService.write(Command.NEW_LINE);
-            mService.write(Command.NEW_LINE);
-            mService.write(Command.NEW_LINE);
-            mService.write(Command.NEW_LINE);
+        });
 
-            int delay = mService.delay == 0 ? 5 * 1000 + PRINT_DELAY_OFFSET * 1000 : mService.delay * 1000 + PRINT_DELAY_OFFSET * 1000;
-            if (delay < 0) {
-                delay = 0;
-            }
-
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
+        thread.start();
 
         return true;
     }
@@ -149,33 +153,38 @@ public class Command {
         return false;
     }
 
-    public static String generateInfoVal(ReadableMap map) throws Exception {
+    public static String generateInfoVal(ReadableMap map) {
         String ret = "";
-        if (isValidVal(map.getString("product"))) {
-            ret += map.getString("product");
-            ret += "/";
-        }
-        if(isValidVal(map.getString("note"))){
-            ret += "(";
-            ret += map.getString("note");
-            ret += ")";
-        }
-        if (!"".equals(ret)) {
-            ret += "/";
-        }
-        if (isValidVal(map.getString("variety"))) {
-            ret += map.getString("variety");
-            ret += "/";
-        }
-        if (isValidVal(map.getString("spec"))) {
-            ret += map.getString("spec");
-            ret += "/";
-        }
-        if (isValidVal(map.getString("weight"))) {
-            ret += map.getString("weight");
-            ret += "/";
-        }
+        try {
+            if (isValidVal(map.getString("product"))) {
+                ret += map.getString("product");
+                ret += "/";
+            }
+            if (isValidVal(map.getString("note"))) {
+                ret += "(";
+                ret += map.getString("note");
+                ret += ")";
+            }
+            if (!"".equals(ret)) {
+                ret += "/";
+            }
+            if (isValidVal(map.getString("variety"))) {
+                ret += map.getString("variety");
+                ret += "/";
+            }
+            if (isValidVal(map.getString("spec"))) {
+                ret += map.getString("spec");
+                ret += "/";
+            }
+            if (isValidVal(map.getString("weight"))) {
+                ret += map.getString("weight");
+                ret += "/";
+            }
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return ret;
     }
 }

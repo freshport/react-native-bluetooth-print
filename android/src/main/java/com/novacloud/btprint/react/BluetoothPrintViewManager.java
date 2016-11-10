@@ -185,7 +185,7 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
                     switch (msg.arg1) {
                         case BluetoothService.STATE_CONNECTED:
                             Log.d(TAG, "STATE_CONNECTED");
-                            hintTextView.setText("已连接到：" + bluetoothService.getConnectDeviceName());
+                            hintTextView.setText("已连接到：" + bluetoothService.getConnectedDeviceName());
 //                            mTitle.setText(R.string.title_connected_to);
 //                            mTitle.append(mConnectedDeviceName);
                             break;
