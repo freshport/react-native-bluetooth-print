@@ -55,59 +55,63 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
         return;
     }
     
-    for (NSDictionary *dic in rawData) {
-        
-        [self print: [NSString stringWithFormat:@"%@", dic[@"user_company"]] align:kCTTextAlignmentCenter];
-        [self printSmallJustified:@[
-                                    [NSString stringWithFormat:@"No.%@", dic[@"no"]],
-                                    dic[@"date"]
-                                    ]];
-        [self print:[NSString stringWithFormat:@"客户公司名称:%@", dic[@"company"]] align:kCTTextAlignmentLeft];
-        [self print:[NSString stringWithFormat:@"客户公司联系人:%@", dic[@"saler"][@"user"]] align:kCTTextAlignmentLeft];
-        [self printJustified:@[@"品名/品种/规格/件重",
-                               @"退损 数量 单价   金额"
-                               ]];
-        
-        for (NSDictionary *dicInfo in dic[@"list"]) {
-            NSString *returnnumStr = [[NSString stringWithFormat:@"%@", dicInfo[@"returnnum"]] stringByPaddingToLength:4 withString:@" " startingAtIndex:0];
-            NSString *numStr = [[NSString stringWithFormat:@"%@", dicInfo[@"num"]] stringByPaddingToLength:4 withString:@" " startingAtIndex:0];
-            NSString *priceStr = [[NSString stringWithFormat:@"%@", dicInfo[@"price"]] stringByPaddingToLength:4 withString:@" " startingAtIndex:0];
-            NSMutableString *cashStr = [[NSMutableString alloc] initWithCapacity:6];
-            for (NSInteger i = 0; i < 6 - (NSInteger)[[NSString stringWithFormat:@"%@", dicInfo[@"cash"]] length]; i++) {
-                [cashStr appendString:@" "];
-            }
-            [cashStr appendString:[NSString stringWithFormat:@"%@", dicInfo[@"cash"]]];
-            [self printJustified:@[ [self generateInfoVal:dicInfo],
-                                    [NSString stringWithFormat:@"%@ %@ %@ %@",
-                                     returnnumStr,
-                                     numStr,
-                                     priceStr,
-                                     cashStr]
-                                    ]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (NSDictionary *dic in rawData) {
             
+            [self print: [NSString stringWithFormat:@"%@", dic[@"user_company"]] align:kCTTextAlignmentCenter];
+            [self printSmallJustified:@[
+                                        [NSString stringWithFormat:@"No.%@", dic[@"no"]],
+                                        dic[@"date"]
+                                        ]];
+            [self print:[NSString stringWithFormat:@"客户公司名称:%@", dic[@"company"]] align:kCTTextAlignmentLeft];
+            [self print:[NSString stringWithFormat:@"客户公司联系人:%@", dic[@"saler"][@"user"]] align:kCTTextAlignmentLeft];
+            [self printJustified:@[@"品名/品种/规格/件重",
+                                   @"退损 数量 单价   金额"
+                                   ]];
+            
+            for (NSDictionary *dicInfo in dic[@"list"]) {
+                NSString *returnnumStr = [[NSString stringWithFormat:@"%@", dicInfo[@"returnnum"]] stringByPaddingToLength:4 withString:@" " startingAtIndex:0];
+                NSString *numStr = [[NSString stringWithFormat:@"%@", dicInfo[@"num"]] stringByPaddingToLength:4 withString:@" " startingAtIndex:0];
+                NSString *priceStr = [[NSString stringWithFormat:@"%@", dicInfo[@"price"]] stringByPaddingToLength:4 withString:@" " startingAtIndex:0];
+                NSMutableString *cashStr = [[NSMutableString alloc] initWithCapacity:6];
+                for (NSInteger i = 0; i < 6 - (NSInteger)[[NSString stringWithFormat:@"%@", dicInfo[@"cash"]] length]; i++) {
+                    [cashStr appendString:@" "];
+                }
+                [cashStr appendString:[NSString stringWithFormat:@"%@", dicInfo[@"cash"]]];
+                [self printJustified:@[ [self generateInfoVal:dicInfo],
+                                        [NSString stringWithFormat:@"%@ %@ %@ %@",
+                                         returnnumStr,
+                                         numStr,
+                                         priceStr,
+                                         cashStr]
+                                        ]];
+                
+            }
+            
+            NSMutableString *sumStr = [[NSMutableString alloc] initWithCapacity:12];
+            for (NSInteger i = 0 ; i < 12 - (NSInteger)[[NSString stringWithFormat:@"%@", dic[@"sum"][@"sum"]] length]; i ++) {
+                [sumStr appendString:@" "];
+            }
+            [sumStr appendString:[NSString stringWithFormat:@"%@", dic[@"sum"][@"sum"]]];
+            [self print:[NSString stringWithFormat:@"合计%@", sumStr] align:kCTTextAlignmentRight];
+            [self printJustified:@[
+                                   [NSString stringWithFormat:@"销售员:%@ %@", dic[@"user_saler"], dic[@"user_tel"]],
+                                   dic[@"type"]
+                                   ]];
+            [self print:@"************************************************" align:kCTTextAlignmentCenter];
+            [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
+            [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
+            
+            NSInteger delay = self.printer.delay == 0 ? 5 + PRINT_DELAY_OFFSET : self.printer.delay + PRINT_DELAY_OFFSET;
+            if (delay < 0) {
+                delay = 0;
+            }
+            [NSThread sleepForTimeInterval:delay];
         }
-        
-        NSMutableString *sumStr = [[NSMutableString alloc] initWithCapacity:12];
-        for (NSInteger i = 0 ; i < 12 - (NSInteger)[[NSString stringWithFormat:@"%@", dic[@"sum"][@"sum"]] length]; i ++) {
-            [sumStr appendString:@" "];
-        }
-        [sumStr appendString:[NSString stringWithFormat:@"%@", dic[@"sum"][@"sum"]]];
-        [self print:[NSString stringWithFormat:@"合计%@", sumStr] align:kCTTextAlignmentRight];
-        [self printJustified:@[
-                               [NSString stringWithFormat:@"销售员:%@ %@", dic[@"user_saler"], dic[@"user_tel"]],
-                               dic[@"type"]
-                               ]];
-        [self print:@"************************************************" align:kCTTextAlignmentCenter];
-        [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
-        [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
-        
-        NSInteger delay = self.printer.delay == 0 ? 5 + PRINT_DELAY_OFFSET : self.printer.delay + PRINT_DELAY_OFFSET;
-        if (delay < 0) {
-            delay = 0;
-        }
-        [NSThread sleepForTimeInterval:delay];
+ 
+    });
+    
     }
-}
 
 - (void)printJustified:(NSArray *)printContent {
     NSData *data = nil;
