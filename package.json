@@ -1,6 +1,6 @@
 {
   "name": "react-native-bluetooth-print",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "'react native component of bluetooth print for freshport'",
   "main": "index.js",
   "scripts": {

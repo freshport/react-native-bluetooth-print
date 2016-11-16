@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 
@@ -41,6 +43,7 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
 
     private static final boolean D = true;
     private static final String TAG = "BlueToothDeviceListView";
+    private static final int REQUEST_ENABLE_BLUETOOTH = 2;
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
@@ -67,7 +70,6 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
         hintTextView = (TextView)deviceListView.findViewById(R.id.title_hint);
 
         bluetoothService = BluetoothService.getInstance(mHandler);
-        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mPairedDevicesArrayAdapter = new ArrayAdapter<String>(context, R.layout.device_name);
         mNewDevicesArrayAdapter = new ArrayAdapter<String>(context, R.layout.device_name);
@@ -80,12 +82,25 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
         newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
+        context.addActivityEventListener(activityEventListener);
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (!mBtAdapter.enable()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            context.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BLUETOOTH, new Bundle());
+        } else {
+            init();
+        }
+
+
+        return deviceListView;
+    }
+
+    private void init() {
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         context.registerReceiver(mReceiver, filter);
 
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         context.registerReceiver(mReceiver, filter);
-
         Set<BluetoothDevice> pairedDevices;
         if (mBtAdapter != null) {
             pairedDevices = mBtAdapter.getBondedDevices();
@@ -104,13 +119,12 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
         }
 
         doDiscovery();
-
-        return deviceListView;
     }
 
     @Override
     public void onDropViewInstance(View view) {
         context.unregisterReceiver(mReceiver);
+        context.removeActivityEventListener(activityEventListener);
     }
 
     /**
@@ -176,6 +190,18 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
         }
     };
 
+    private final ActivityEventListener activityEventListener = new ActivityEventListener() {
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            switch (requestCode) {
+                case REQUEST_ENABLE_BLUETOOTH:
+                    if (resultCode == -1) {
+                        init();
+                    }
+                    break;
+            }
+        }
+    };
     private final Handler mHandler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(Message msg) {
             switch (msg.what) {
