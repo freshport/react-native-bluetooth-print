@@ -90,7 +90,7 @@ public class Command {
                             info.append("\n");
                             info.append(listMap.getString("num") + "/");
                             info.append(listMap.getString("price") + "元/");
-                            info.append(listMap.getString("cash") + "元/");
+                            info.append(listMap.getString("cash") + "元");
                             info.append("\n");
                         }
                     }
