@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReadableMap;
 public class Command {
 
     private final static int PRINT_DELAY_OFFSET = 3;
+    private final static String SHANG_MI_BT_PRINTER_NAME = "InnerPrinter";
     public static byte[] INIT = hexStringToBytes("1B 40");//初始化
     public static byte[] ALIGN_LEFT = hexStringToBytes("1B 61 00");//左对齐
     public static byte[] ALIGN_RIGHT = hexStringToBytes("1B 61 02");//居右对齐
@@ -18,6 +19,7 @@ public class Command {
     public static byte[] UNDER_LINE = hexStringToBytes("1C 2D 01");//下划线
     public static byte[] NEW_LINE = hexStringToBytes("0A");//换行
     public static byte[] HEIGHT_LINE = hexStringToBytes("1B 33 16");//行间距
+    public static byte[] HEIGHT_LINE_57MM = hexStringToBytes("1B 33 2d");//行间距
     public static byte[] SMALL_FONT = hexStringToBytes("1B 4D 01");//小号字体
     public static byte[] NORMAL_FONT = hexStringToBytes("1B 4D 00");//正常
     public static byte[] BOLD_FONT = hexStringToBytes("1B 45 01");//粗体
@@ -41,11 +43,97 @@ public class Command {
     }
 
     public static boolean print(final ReadableArray readableArray) throws Exception {
-
         mService = BluetoothService.getInstance(null);
-        if (readableArray == null || readableArray.size() == 0) return false;
         if (mService.getState() != mService.STATE_CONNECTED) return false;
+        if (readableArray == null || readableArray.size() == 0) return false;
+        boolean ret = false;
+        if (mService.getConnectedDeviceName().equals(SHANG_MI_BT_PRINTER_NAME)) {
+            ret = print57MM(readableArray);
+        } else {
+            ret=  print80MM(readableArray);
+        }
+        return  ret;
+    }
 
+    private static boolean print57MM(final  ReadableArray readableArray) throws Exception {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < readableArray.size(); i++) {
+                    ReadableMap map = readableArray.getMap(i);
+                    mService.write(Command.INIT);
+
+                    mService.write(Command.ALIGN_CENTER);
+                    mService.write(Command.HEIGHT_LINE_57MM);
+                    mService.write(map.getString("user_company") + "销售单");
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write(Command.ALIGN_LEFT);
+                    mService.write("No." + map.getString("no"));
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write("公司名称：" + map.getString("company"));
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write("联系人：" + map.getMap("saler").getString("user"));
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write("品名/品种/规格/件重");
+                    mService.write(Command.NEW_LINE);
+
+                    ReadableArray list = map.getArray("list");
+                    StringBuffer info = new StringBuffer("");
+                    if (null != list) {
+                        for (int j = 0; j < list.size(); j++) {
+                            ReadableMap listMap = list.getMap(j);
+                            info.append(new StringBuffer(generateInfoVal(listMap)));
+                            info.append("\n");
+                            info.append(listMap.getString("num") + "/");
+                            info.append(listMap.getString("price") + "元/");
+                            info.append(listMap.getString("cash") + "元/");
+                            info.append("\n");
+                        }
+                    }
+                    mService.write(info.toString());
+                    mService.write("总价：" + map.getMap("sum").getString("sum") + "元");
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write(map.getString("type"));
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write(map.getString("user_saler") + " " + map.getString("user_tel"));
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write("注:本单等同于辉展《销售成交单》");
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write("客户签名:");
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+                    mService.write(Command.NEW_LINE);
+
+                    int delay = mService.delay == 0 ? 5 * 1000 + PRINT_DELAY_OFFSET * 1000 : mService.delay * 1000 + PRINT_DELAY_OFFSET * 1000;
+                    if (delay < 0) {
+                        delay = 0;
+                    }
+                    try {
+                        Thread.sleep(delay);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        thread.start();
+        return true;
+    }
+
+    private static boolean print80MM(final ReadableArray readableArray) throws Exception  {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -181,6 +269,9 @@ public class Command {
                 ret += "/";
             }
 
+            if (ret.endsWith("/")) {
+                ret = ret.substring(0, ret.length() - 1);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
