@@ -72,6 +72,9 @@ public class Command {
                     mService.write("No." + map.getString("no"));
                     mService.write(Command.NEW_LINE);
 
+                    mService.write(map.getString("printDate"));
+                    mService.write(Command.NEW_LINE);
+
                     mService.write("公司名称：" + map.getString("company"));
                     mService.write(Command.NEW_LINE);
 
@@ -151,7 +154,13 @@ public class Command {
                     mService.write(Command.SMALL_FONT);
                     mService.write(Command.HEIGHT_LINE);
 
+                    mService.write(Command.SMALL_FONT);
                     mService.write(addBlankCase("No." + map.getString("no"), map.getString("date"), Command.SMALL_FONT_NUMBER));
+                    mService.write(Command.NEW_LINE);
+
+                    mService.write(Command.NORMAL_FONT);
+                    mService.write(map.getString("printDate"));
+                    mService.write(Command.NEW_LINE);
 
                     mService.write(Command.NORMAL_FONT);
                     mService.write("客户公司名称:" + map.getString("company") + "\n");
