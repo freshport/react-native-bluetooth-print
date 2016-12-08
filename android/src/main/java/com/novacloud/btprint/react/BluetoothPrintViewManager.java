@@ -123,7 +123,11 @@ public class BluetoothPrintViewManager extends SimpleViewManager<View> {
 
     @Override
     public void onDropViewInstance(View view) {
-        context.unregisterReceiver(mReceiver);
+        try {
+            context.unregisterReceiver(mReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         context.removeActivityEventListener(activityEventListener);
     }
 
