@@ -65,7 +65,8 @@ public class Command {
 
                     mService.write(Command.ALIGN_CENTER);
                     mService.write(Command.HEIGHT_LINE_57MM);
-                    mService.write(map.getString("user_company") + "销售单");
+                    
+                    mService.write(map.getString("user_company") + map.getString("orderType"));
                     mService.write(Command.NEW_LINE);
 
                     mService.write(Command.ALIGN_LEFT);
@@ -145,10 +146,9 @@ public class Command {
                     mService.write(Command.INIT);
                     //mService.write(Command.BOLD_FONT);
 
-                    String company = map.getString("user_company");
                     mService.write(Command.ALIGN_CENTER);
 
-                    mService.write(company);
+                    mService.write(map.getString("user_company") + map.getString("orderType"));
                     mService.write(Command.NEW_LINE);
                     mService.write(Command.ALIGN_LEFT);
                     mService.write(Command.SMALL_FONT);
