@@ -260,10 +260,7 @@ public class Command {
             if (isValidVal(map.getString("note"))) {
                 ret += "(";
                 ret += map.getString("note");
-                ret += ")";
-            }
-            if (!"".equals(ret)) {
-                ret += "/";
+                ret += ")/";
             }
             if (isValidVal(map.getString("variety"))) {
                 ret += map.getString("variety");
