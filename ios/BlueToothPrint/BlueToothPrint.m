@@ -102,6 +102,10 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
             [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
             [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
             
+            if (dic[@"print_delivery"] && [@"1" isEqualToString:dic[@"print_delivery"]]) {
+                [self printDeliveryArea:dic];
+            }
+            
             NSInteger delay = self.printer.delay == 0 ? 5 + PRINT_DELAY_OFFSET : self.printer.delay + PRINT_DELAY_OFFSET;
             if (delay < 0) {
                 delay = 0;
@@ -112,6 +116,29 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
     });
     
     }
+
+- (void)printDeliveryArea:(NSDictionary *)dic {
+    [self print: [NSString stringWithFormat:@"%@-送货单", dic[@"user_company"]] align:kCTTextAlignmentCenter];
+    [self print: [NSString stringWithFormat:@"订单号：%@", dic[@"no"]] align:kCTTextAlignmentLeft];
+    [self print: [NSString stringWithFormat:@"客户：", dic[@"company"]] align:kCTTextAlignmentLeft];
+    
+    for (NSDictionary *dicInfo in dic[@"list"]) {
+        [self print: [NSString stringWithFormat:@"商品：%@", [self generateInfoVal:dicInfo]] align:kCTTextAlignmentLeft];
+        
+        [self print: [NSString stringWithFormat:@"数量：%@", dicInfo[@"num"]] align:kCTTextAlignmentLeft];
+    }
+    
+     [self print: [NSString stringWithFormat:@"销售员：%@ %@", dic[@"user_saler"], dic[@"user_tel"]] align:kCTTextAlignmentLeft];
+    
+    NSArray *deliveryArea = dic[@"delivery_area"];
+    NSMutableString *joinedArea = [[NSMutableString alloc] init];
+    for (NSString *area in deliveryArea) {
+        [joinedArea appendFormat:@"%@ ", area];
+    }
+    [self print: [NSString stringWithFormat:@"送货区域：%@", joinedArea] align:kCTTextAlignmentLeft];
+    [self print: [NSString stringWithFormat:@"车牌号：%@", dic[@"plate_num"]] align:kCTTextAlignmentLeft];
+     [self print:@"\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
+}
 
 - (void)printJustified:(NSArray *)printContent {
     NSData *data = nil;
@@ -288,6 +315,10 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
     if ([self isValid:dic[@"weight"]]) {
         [ret appendString:@"件重/"];
     }
+    
+    if ([ret hasSuffix:@"/"]) {
+        [ret deleteCharactersInRange:NSMakeRange(ret.length -1, 1)];
+    }
     return ret;
 }
 
@@ -308,6 +339,10 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
     if ([self isValid:dic[@"weight"]]) {
         [ret appendString:dic[@"weight"]];
         [ret appendString:@"/"];
+    }
+    
+    if ([ret hasSuffix:@"/"]) {
+        [ret deleteCharactersInRange:NSMakeRange(ret.length -1, 1)];
     }
     
     return ret;
