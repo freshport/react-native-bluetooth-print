@@ -120,6 +120,10 @@ public class Command {
                     mService.write(Command.NEW_LINE);
                     mService.write(Command.NEW_LINE);
 
+                    if (map.hasKey("print_delivery") && "1".equals(map.getString("print_delivery"))) {
+                        printDeliveryOrder(map);
+                    }
+
                     int delay = mService.delay == 0 ? 5 * 1000 + PRINT_DELAY_OFFSET * 1000 : mService.delay * 1000 + PRINT_DELAY_OFFSET * 1000;
                     if (delay < 0) {
                         delay = 0;
@@ -193,12 +197,19 @@ public class Command {
                     mService.write("\n************************************************");
                     mService.write("\n注：本销售单等同于辉展市场巜销售成交单》");
                     mService.write("\n客户签名:");
+
                     mService.write(Command.NEW_LINE);
                     mService.write(Command.NEW_LINE);
                     mService.write(Command.NEW_LINE);
-                    mService.write(Command.NEW_LINE);
-                    mService.write(Command.NEW_LINE);
-                    mService.write(Command.NEW_LINE);
+
+
+                    if (map.hasKey("print_delivery") && "1".equals(map.getString("print_delivery"))) {
+                        printDeliveryOrder(map);
+                    } else {
+                        mService.write(Command.NEW_LINE);
+                        mService.write(Command.NEW_LINE);
+                        mService.write(Command.NEW_LINE);
+                    }
 
                     int delay = mService.delay == 0 ? 5 * 1000 + PRINT_DELAY_OFFSET * 1000 : mService.delay * 1000 + PRINT_DELAY_OFFSET * 1000;
                     if (delay < 0) {
@@ -217,6 +228,54 @@ public class Command {
 
         return true;
     }
+
+    private static void printDeliveryOrder(ReadableMap map) {
+
+        mService.write(Command.ALIGN_CENTER);
+        mService.write(map.getString("user_company") + "-送货单");
+        mService.write(Command.NEW_LINE);
+
+        mService.write(Command.ALIGN_LEFT);
+        mService.write("订单号：" + map.getString("no"));
+        mService.write(Command.NEW_LINE);
+
+        mService.write("客户：" + map.getString("company"));
+        mService.write(Command.NEW_LINE);
+
+        ReadableArray list = map.getArray("list");
+        if (list != null) {
+            for (int j = 0; j < list.size(); j++) {
+                ReadableMap listMap = list.getMap(j);
+                String line = "商品：" + generateInfoVal(listMap);
+                mService.write(line);
+                mService.write(Command.NEW_LINE);
+                mService.write("数量：" + listMap.getString("num"));
+                mService.write(Command.NEW_LINE);
+            }
+        }
+
+        mService.write("销售员：" + map.getString("user_saler") + " " + map.getString("user_tel"));
+        mService.write(Command.NEW_LINE);
+
+        ReadableArray deliveryArea =  map.getArray("delivery_area");
+        String joinedArea = "";
+        for (int i = 0; i < deliveryArea.size(); i++) {
+            joinedArea = joinedArea + deliveryArea.getString(i) + " ";
+        }
+        mService.write("送货区域：" + joinedArea);
+        mService.write(Command.NEW_LINE);
+
+        mService.write("车牌号：" + map.getString("plate_num"));
+
+
+        mService.write(Command.NEW_LINE);
+        mService.write(Command.NEW_LINE);
+        mService.write(Command.NEW_LINE);
+        mService.write(Command.NEW_LINE);
+        mService.write(Command.NEW_LINE);
+
+    }
+
 
     public static String addBlankCase(String first, String end, int number) {
         String str = null;
