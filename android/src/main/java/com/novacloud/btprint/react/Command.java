@@ -66,14 +66,14 @@ public class Command {
                     mService.write(Command.ALIGN_CENTER);
                     mService.write(Command.HEIGHT_LINE_57MM);
                     
-                    mService.write(map.getString("user_company") + map.getString("orderType"));
+                    mService.write(map.getString("user_company") + map.getString("order_type"));
                     mService.write(Command.NEW_LINE);
 
                     mService.write(Command.ALIGN_LEFT);
                     mService.write("No." + map.getString("no"));
                     mService.write(Command.NEW_LINE);
 
-                    mService.write(map.getString("printDate"));
+                    mService.write(map.getString("print_date"));
                     mService.write(Command.NEW_LINE);
 
                     mService.write("公司名称：" + map.getString("company"));
@@ -152,7 +152,7 @@ public class Command {
 
                     mService.write(Command.ALIGN_CENTER);
 
-                    mService.write(map.getString("user_company") + map.getString("orderType"));
+                    mService.write(map.getString("user_company") + map.getString("order_type"));
                     mService.write(Command.NEW_LINE);
                     mService.write(Command.ALIGN_LEFT);
                     mService.write(Command.SMALL_FONT);
@@ -163,7 +163,7 @@ public class Command {
                     mService.write(Command.NEW_LINE);
 
                     mService.write(Command.NORMAL_FONT);
-                    mService.write(map.getString("printDate"));
+                    mService.write(map.getString("print_date"));
                     mService.write(Command.NEW_LINE);
 
                     mService.write(Command.NORMAL_FONT);
