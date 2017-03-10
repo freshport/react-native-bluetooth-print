@@ -120,7 +120,7 @@ public class Command {
                     mService.write(Command.NEW_LINE);
                     mService.write(Command.NEW_LINE);
 
-                    if (map.hasKey("print_delivery") && "1".equals(map.getString("print_delivery"))) {
+                    if (map.hasKey("print_delivery") && "1".equals(map.getString("print_delivery")) && i == 0) {
                         printDeliveryOrder(map);
                     }
 
@@ -203,7 +203,7 @@ public class Command {
                     mService.write(Command.NEW_LINE);
 
 
-                    if (map.hasKey("print_delivery") && "1".equals(map.getString("print_delivery"))) {
+                    if (map.hasKey("print_delivery") && "1".equals(map.getString("print_delivery")) && i == 0) {
                         printDeliveryOrder(map);
                     } else {
                         mService.write(Command.NEW_LINE);

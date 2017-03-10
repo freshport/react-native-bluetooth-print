@@ -56,6 +56,7 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSUInteger i = 0;
         for (NSDictionary *dic in rawData) {
             
             [self print: [NSString stringWithFormat:@"%@", dic[@"user_company"]] align:kCTTextAlignmentCenter];
@@ -102,7 +103,7 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
             [self print:@"注：本销售单等同于辉展市场巜销售成交单》" align:kCTTextAlignmentLeft];
             [self print:@"客户签名:\n\n\n\n\n\n" align:kCTTextAlignmentLeft];
             
-            if (dic[@"print_delivery"] && [@"1" isEqualToString:dic[@"print_delivery"]]) {
+            if (dic[@"print_delivery"] && [@"1" isEqualToString:dic[@"print_delivery"]] && i == 0) {
                 [self printDeliveryArea:dic];
             }
             
@@ -111,6 +112,7 @@ RCT_EXPORT_METHOD(orderPrint:(NSArray *)rawData) {
                 delay = 0;
             }
             [NSThread sleepForTimeInterval:delay];
+            i++;
         }
  
     });
