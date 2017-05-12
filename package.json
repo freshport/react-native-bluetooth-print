@@ -1,6 +1,6 @@
 {
   "name": "react-native-bluetooth-print",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "'react native component of bluetooth print for freshport'",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "print"
   ],
   "author": {
-    "name": "novacloud"
+    "name": "freshport"
   },
   "license": "ISC",
   "homepage": "https://bitbucket.org/freshport/react-native-btprint#readme",
