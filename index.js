@@ -14,7 +14,7 @@ if (Platform.OS === 'ios') {
     const iface = {
         name: 'PrinterList',
         propTypes: {
-            ...React.propTypes
+            ...View.propTypes
         }
     }
     PrinterList = requireNativeComponent('BluetoothPrintView', iface)
